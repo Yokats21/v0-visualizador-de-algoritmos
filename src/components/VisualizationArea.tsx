@@ -23,6 +23,22 @@ function getStateGlow(index: number, step: SortStep | null): string {
   return ''
 }
 
+function getCardBackground(index: number, step: SortStep | null): string {
+  if (!step) return 'bg-card/50'
+  if (step.sorted.includes(index)) return 'bg-sorted/20'
+  if (step.swapping.includes(index)) return 'bg-swapping/30'
+  if (step.comparing.includes(index)) return 'bg-comparing/20'
+  return 'bg-card/50'
+}
+
+function getCardBorderColor(index: number, step: SortStep | null): string {
+  if (!step) return 'border-border/50'
+  if (step.sorted.includes(index)) return 'border-sorted'
+  if (step.swapping.includes(index)) return 'border-swapping'
+  if (step.comparing.includes(index)) return 'border-comparing'
+  return 'border-normal/50'
+}
+
 export function VisualizationArea({ step, field, maxValue }: VisualizationAreaProps) {
   const array = step?.array || []
 
@@ -69,16 +85,19 @@ export function VisualizationArea({ step, field, maxValue }: VisualizationAreaPr
       {/* Pokemon Cards */}
       <div className="flex justify-center gap-1 overflow-x-auto pb-2">
         {array.map((pokemon, index) => {
-          const stateColor = getStateColor(index, step)
-          const borderColor = stateColor.replace('bg-', 'border-')
+          const cardBg = getCardBackground(index, step)
+          const borderColor = getCardBorderColor(index, step)
+          const glow = getStateGlow(index, step)
           
           return (
             <div
               key={`card-${pokemon.id}-${index}`}
               className={cn(
                 'flex-shrink-0 flex flex-col items-center p-2 rounded-lg transition-all duration-300',
-                'bg-card/50 border-2',
-                borderColor
+                'border-2',
+                cardBg,
+                borderColor,
+                glow
               )}
               style={{ minWidth: '60px', maxWidth: '80px' }}
             >

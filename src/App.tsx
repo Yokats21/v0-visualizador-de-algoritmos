@@ -100,9 +100,9 @@ export default function App() {
             sampleSize={sampleSize}
           />
         ) : mode === 'visualization' ? (
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            {/* Left Sidebar */}
-            <div className="lg:col-span-1 space-y-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Left Sidebar - Controls */}
+            <div className="lg:col-span-3 space-y-4">
               <AlgorithmSelector
                 selected={algorithm}
                 onSelect={handleAlgorithmChange}
@@ -132,8 +132,8 @@ export default function App() {
               />
             </div>
 
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-4">
+            {/* Main Content - Expanded Visualization */}
+            <div className="lg:col-span-9 space-y-4">
               <VisualizationArea
                 step={currentStep}
                 field={sortField}
@@ -148,18 +148,19 @@ export default function App() {
                 />
               )}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <NarrationPanel narration={currentStep?.narration || ''} />
-                <PseudocodePanel
-                  pseudocode={info?.pseudocode || []}
-                  currentLine={currentStep?.pseudocodeLine || 0}
-                />
+              {/* Bottom Row - Educational, Pseudocode, Narration */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div className="lg:col-span-2">
+                  <EducationalPanel info={info} />
+                </div>
+                <div className="space-y-4">
+                  <PseudocodePanel
+                    pseudocode={info?.pseudocode || []}
+                    currentLine={currentStep?.pseudocodeLine || 0}
+                  />
+                  <NarrationPanel narration={currentStep?.narration || ''} />
+                </div>
               </div>
-            </div>
-
-            {/* Right Sidebar */}
-            <div className="lg:col-span-1">
-              <EducationalPanel info={info} />
             </div>
           </div>
         ) : (
