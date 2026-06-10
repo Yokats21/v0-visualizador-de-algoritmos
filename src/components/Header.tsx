@@ -1,9 +1,11 @@
-import { Beaker, BarChart3 } from 'lucide-react'
+import { Beaker, BarChart3, Search } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+export type AppMode = 'visualization' | 'comparison' | 'search'
+
 interface HeaderProps {
-  mode: 'visualization' | 'comparison'
-  onModeChange: (mode: 'visualization' | 'comparison') => void
+  mode: AppMode
+  onModeChange: (mode: AppMode) => void
 }
 
 export function Header({ mode, onModeChange }: HeaderProps) {
@@ -49,6 +51,18 @@ export function Header({ mode, onModeChange }: HeaderProps) {
             >
               <BarChart3 size={16} />
               Comparação
+            </button>
+            <button
+              onClick={() => onModeChange('search')}
+              className={cn(
+                'flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 text-sm',
+                mode === 'search'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-card hover:bg-card/80 text-foreground border border-border'
+              )}
+            >
+              <Search size={16} />
+              Buscar
             </button>
           </div>
         </div>
