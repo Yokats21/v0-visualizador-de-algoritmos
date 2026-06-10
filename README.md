@@ -73,6 +73,17 @@ Seleciona um pivô e reorganiza os elementos ao redor dele.
 
 Utiliza um Heap Binário (Max Heap) para organizar e extrair os maiores elementos.
 
+Algoritmos de Busca
+
+- Busca Linear
+- Busca Binária
+
+Funcionalidades:
+- Busca exata
+- Busca parcial
+- Visualização passo a passo
+- Comparação de desempenho
+
 ---
 
 # Estruturas de Dados Utilizadas
