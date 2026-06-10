@@ -59,3 +59,36 @@ export type AlgorithmName =
   | 'merge' 
   | 'quick' 
   | 'heap'
+
+export type SearchAlgorithm = 'linear' | 'binary'
+
+export interface SearchStep {
+  array: Pokemon[]
+  current: number
+  left: number
+  right: number
+  middle: number
+  found: number
+  checked: number[]
+  discarded: number[]
+  comparisons: number
+  narration: string
+  pseudocodeLine: number
+}
+
+export interface SearchResult {
+  steps: SearchStep[]
+  totalComparisons: number
+  executionTime: number
+  foundIndex: number
+}
+
+export interface SearchAlgorithmInfo {
+  name: string
+  description: string
+  precondition: string
+  bestCase: string
+  averageCase: string
+  worstCase: string
+  pseudocode: string[]
+}

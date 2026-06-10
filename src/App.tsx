@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Header } from '@/components/Header'
+import type { AppMode } from '@/components/Header'
 import { AlgorithmSelector } from '@/components/AlgorithmSelector'
 import { ControlPanel } from '@/components/ControlPanel'
 import { MetricsPanel } from '@/components/MetricsPanel'
@@ -9,6 +10,7 @@ import { PseudocodePanel } from '@/components/PseudocodePanel'
 import { EducationalPanel } from '@/components/EducationalPanel'
 import { HeapVisualization } from '@/components/HeapVisualization'
 import { ComparisonMode } from '@/components/ComparisonMode'
+import { SearchMode } from '@/components/SearchMode'
 import { LoadingState } from '@/components/LoadingState'
 import { usePokemon } from '@/hooks/usePokemon'
 import { useSorting } from '@/hooks/useSorting'
@@ -16,7 +18,7 @@ import { algorithmInfo } from '@/utils/algorithmInfo'
 import type { AlgorithmName, SortField } from '@/types'
 
 export default function App() {
-  const [mode, setMode] = useState<'visualization' | 'comparison'>('visualization')
+  const [mode, setMode] = useState<AppMode>('visualization')
   const [algorithm, setAlgorithm] = useState<AlgorithmName>('bubble')
   const [sortField, setSortField] = useState<SortField>('weight')
   const [sampleSize, setSampleSize] = useState(10)
@@ -163,8 +165,14 @@ export default function App() {
               </div>
             </div>
           </div>
-        ) : (
+        ) : mode === 'comparison' ? (
           <ComparisonMode pokemon={originalPokemon} field={sortField} />
+        ) : (
+          <SearchMode
+            pokemon={originalPokemon}
+            field={sortField}
+            onFieldChange={handleFieldChange}
+          />
         )}
       </main>
 
