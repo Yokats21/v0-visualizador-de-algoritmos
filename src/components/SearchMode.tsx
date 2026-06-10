@@ -49,6 +49,13 @@ export function SearchMode({ pokemon, field, onFieldChange }: SearchModeProps) {
     binary: { comparisons: number; time: number }
     target: number
   } | null>(null)
+  // Totais reais de comparações da última busca (para o gráfico em tempo real)
+  const [liveSearch, setLiveSearch] = useState<{
+    target: number
+    field: SortField
+    linearTotal: number
+    binaryTotal: number
+  } | null>(null)
 
   const {
     currentStep,
